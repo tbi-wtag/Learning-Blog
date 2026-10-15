@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: db-config
+  namespace: learning-app
+data:
+  POSTGRES_USER: "user"
+  POSTGRES_DB: "app_db"
+  POSTGRES_HOST: "learning-db-service"
+  POSTGRES_PORT: "5432"
+  VITE_API_URL: "http://localhost:8000"

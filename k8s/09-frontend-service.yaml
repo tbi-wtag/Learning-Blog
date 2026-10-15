@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: learning-app
+spec:
+  type: NodePort
+  selector:
+    app: learning-frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30081

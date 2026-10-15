@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learning-backend
+  namespace: learning-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: learning-backend
+  template:
+    metadata:
+      labels:
+        app: learning-backend
+    spec:
+      containers:
+        - name: backend
+          image: tejalb29/learning-backend:v1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: db-config
+            - secretRef:
+                name: db-secrets

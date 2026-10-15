@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learning-frontend
+  namespace: learning-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: learning-frontend
+  template:
+    metadata:
+      labels:
+        app: learning-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: tejalb29/learning-frontend:v1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
