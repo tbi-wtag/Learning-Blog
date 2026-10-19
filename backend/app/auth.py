@@ -31,7 +31,7 @@ def create_access_token(data: dict) -> str:
 def get_current_user_id(token: str = Depends(oauth2_scheme)) -> int:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
+        detail="Credentials not valid",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
