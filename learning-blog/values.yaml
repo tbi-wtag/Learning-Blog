@@ -1,0 +1,69 @@
+configmap:
+  POSTGRES_HOST: "learning-blog-postgresql"
+  POSTGRES_DB: "app_db"
+  POSTGRES_PORT: "5432"
+  POSTGRES_USER: "user"
+
+secrets:
+  dbPassword: "abc123"
+
+postgresql:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: "18.6.0"
+    pullPolicy: IfNotPresent
+  primary:
+    initdb:
+      scriptsConfigMap: "learning-blog-postgresql-init-scripts"
+    persistence:
+      enabled: true
+      size: 1Gi
+  auth:
+    username: "user"
+    password: "abc123"
+    database: "app_db"
+    postgresPassword: "postgresPassword123"
+
+backend:
+  name: learning-backend
+  replicaCount: 1
+  port: 8000
+  image: 
+    repository: tejalb29/learning-backend-blog
+    tag: "v1.0"
+    pullPolicy: Always
+  service:
+    type: NodePort
+    port: 8000
+    targetPort: 8000
+    nodePort: 30080
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+frontend:
+  name: learning-frontend
+  replicaCount: 1
+  port: 3000
+  image:
+    repository: tejalb29/learning-frontend-blog
+    tag: "v1.0"
+    pullPolicy: Always
+  service:
+    type: NodePort
+    port: 3000
+    targetPort: 3000
+    nodePort: 30081
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+     cpu: 50m
+     memory: 64Mi
