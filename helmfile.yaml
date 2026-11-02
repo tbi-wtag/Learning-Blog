@@ -1,11 +1,20 @@
 repositories:
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-    
+
 releases:
+  - name: learning-blog-db
+    namespace: learning-app
+    createNamespace: true
+    chart: bitnami/postgresql
+    values:
+      - ./postgres-values.yaml
+
   - name: learning-blog
     namespace: learning-app
     createNamespace: true
     chart: ./learning-blog
+    needs:
+      - learning-app/learning-blog-db
     values:
       - ./learning-blog/values.yaml

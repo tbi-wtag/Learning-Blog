@@ -1,0 +1,18 @@
+image:
+  registry: docker.io
+  repository: bitnami/postgresql
+  tag: "18.6.0"
+  pullPolicy: IfNotPresent
+
+auth:
+  username: "user"
+  password: "abc123"
+  database: "app_db"
+  postgresPassword: "postgresPassword123"
+
+primary:
+  initdb:
+    scriptsConfigMap: "learning-blog-postgresql-init-scripts"
+  persistence:
+    enabled: true
+    size: 1Gi
