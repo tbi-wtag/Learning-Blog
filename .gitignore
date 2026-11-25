@@ -1,1 +1,12 @@
 .env
+
+# Ignore private Terraform variable values
+terraform.tfvars
+*.tfvars
+
+# Ignore Terraform state files (they contain deployed secrets!)
+*.tfstate
+*.tfstate.*
+
+# Ignore downloaded provider plugins
+.terraform/
